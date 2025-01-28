@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll 테마와 레이아웃 커스터마이징 가이드 - Your awesome title</title>
+    <style>
+        /* 전체 레이아웃 스타일링 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* 헤더 스타일링 */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* 네비게이션 스타일링 */
+        nav {
+            background-color: #34495e;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* 메인 컨텐츠 영역 스타일링 */
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        /* 포스트 스타일링 */
+        article {
+            padding: 2rem;
+        }
+
+        article h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        article time {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* 푸터 스타일링 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        /* 링크 스타일링 */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* 코드 블록 스타일링 */
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            main {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your awesome title</h1>
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/archive">Archive</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 id="jekyll-테마와-레이아웃-커스터마이징-가이드">Jekyll 테마와 레이아웃 커스터마이징 가이드</h1>
+
+<p>이 포스트에서는 Jekyll 블로그의 테마와 레이아웃을 커스터마이징하는 방법에 대해 상세히 알아보겠습니다.</p>
+
+<h2 id="1-jekyll의-디렉토리-구조-이해하기">1. Jekyll의 디렉토리 구조 이해하기</h2>
+
+<p>Jekyll 사이트의 기본 디렉토리 구조는 다음과 같습니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll_blog/
+├── _config.yml        # 설정 파일
+├── _layouts/         # 레이아웃 파일들
+├── _includes/        # 재사용 가능한 부분 템플릿
+├── _posts/           # 블로그 포스트
+├── _sass/           # Sass 부분 파일들
+└── assets/          # 정적 파일들 (이미지, CSS, JS 등)
+</code></pre></div></div>
+
+<h2 id="2-_configyml-설정하기">2. _config.yml 설정하기</h2>
+
+<p>사이트의 기본 설정은 _config.yml 파일에서 관리합니다:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">title</span><span class="pi">:</span> <span class="s">나의 Jekyll 블로그</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">웹 개발과 프로그래밍에 대한 이야기</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://yourblog.com"</span>
+<span class="na">theme</span><span class="pi">:</span> <span class="s">minima</span>
+
+<span class="c1"># 블로그 설정</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/:year/:month/:day/:title/</span>
+<span class="na">paginate</span><span class="pi">:</span> <span class="m">5</span>
+
+<span class="c1"># 소셜 미디어 링크</span>
+<span class="na">social</span><span class="pi">:</span>
+  <span class="na">github</span><span class="pi">:</span> <span class="s">yourusername</span>
+  <span class="na">twitter</span><span class="pi">:</span> <span class="s">yourusername</span>
+  <span class="na">linkedin</span><span class="pi">:</span> <span class="s">yourusername</span>
+</code></pre></div></div>
+
+<h2 id="3-레이아웃-커스터마이징">3. 레이아웃 커스터마이징</h2>
+
+<h3 id="기본-레이아웃-defaulthtml">기본 레이아웃 (default.html)</h3>
+
+<p>레이아웃은 _layouts 디렉토리에 저장되며, HTML과 Liquid 템플릿 문법을 사용합니다:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"ko"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Jekyll 테마와 레이아웃 커스터마이징 가이드<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/assets/css/main.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;header&gt;</span>
+        <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"site-header"</span> <span class="na">role=</span><span class="s">"banner"</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"wrapper"</span><span class="nt">&gt;&lt;a</span> <span class="na">class=</span><span class="s">"site-title"</span> <span class="na">rel=</span><span class="s">"author"</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>Your awesome title<span class="nt">&lt;/a&gt;&lt;nav</span> <span class="na">class=</span><span class="s">"site-nav"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">id=</span><span class="s">"nav-trigger"</span> <span class="na">class=</span><span class="s">"nav-trigger"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"nav-trigger"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"menu-icon"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;svg</span> <span class="na">viewBox=</span><span class="s">"0 0 18 15"</span> <span class="na">width=</span><span class="s">"18px"</span> <span class="na">height=</span><span class="s">"15px"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;path</span> <span class="na">d=</span><span class="s">"M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/svg&gt;</span>
+          <span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;/label&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"trigger"</span><span class="nt">&gt;&lt;a</span> <span class="na">class=</span><span class="s">"page-link"</span> <span class="na">href=</span><span class="s">"/about/"</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;&lt;/div&gt;</span>
+      <span class="nt">&lt;/nav&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/header&gt;</span>
+
+    <span class="nt">&lt;/header&gt;</span>
+    
+    <span class="nt">&lt;main&gt;</span>
+        <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">"마크다운-문법-종합-가이드"</span><span class="nt">&gt;</span>마크다운 문법 종합 가이드<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>이 포스트에서는 Jekyll 블로그에서 사용할 수 있는 다양한 마크다운 문법을 소개합니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"1-제목-headers"</span><span class="nt">&gt;</span>1. 제목 (Headers)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">"h1-제목"</span><span class="nt">&gt;</span>H1 제목<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"h2-제목"</span><span class="nt">&gt;</span>H2 제목<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;h3</span> <span class="na">id=</span><span class="s">"h3-제목"</span><span class="nt">&gt;</span>H3 제목<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;h4</span> <span class="na">id=</span><span class="s">"h4-제목"</span><span class="nt">&gt;</span>H4 제목<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;h5</span> <span class="na">id=</span><span class="s">"h5-제목"</span><span class="nt">&gt;</span>H5 제목<span class="nt">&lt;/h5&gt;</span>
+<span class="nt">&lt;h6</span> <span class="na">id=</span><span class="s">"h6-제목"</span><span class="nt">&gt;</span>H6 제목<span class="nt">&lt;/h6&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"2-강조-emphasis"</span><span class="nt">&gt;</span>2. 강조 (Emphasis)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;em&gt;</span>이텔릭체<span class="nt">&lt;/em&gt;</span>
+<span class="nt">&lt;em&gt;</span>이것도 이텔릭체<span class="nt">&lt;/em&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;</span>볼드체<span class="nt">&lt;/strong&gt;</span>
+<span class="nt">&lt;strong&gt;</span>이것도 볼드체<span class="nt">&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;&lt;em&gt;</span>이텔릭+볼드체<span class="nt">&lt;/em&gt;&lt;/strong&gt;</span>
+<span class="nt">&lt;strong&gt;&lt;em&gt;</span>이것도 이텔릭+볼드체<span class="nt">&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;del&gt;</span>취소선<span class="nt">&lt;/del&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"3-목록-lists"</span><span class="nt">&gt;</span>3. 목록 (Lists)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h3</span> <span class="na">id=</span><span class="s">"순서-있는-목록"</span><span class="nt">&gt;</span>순서 있는 목록:<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;ol&gt;</span>
+  <span class="nt">&lt;li&gt;</span>첫 번째 항목<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>두 번째 항목<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>세 번째 항목<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ol&gt;</span>
+
+<span class="nt">&lt;h3</span> <span class="na">id=</span><span class="s">"순서-없는-목록"</span><span class="nt">&gt;</span>순서 없는 목록:<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li&gt;</span>항목 1<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>항목 2
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="nt">&lt;li&gt;</span>하위 항목 2.1<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>하위 항목 2.2<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>항목 3<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"4-링크-links"</span><span class="nt">&gt;</span>4. 링크 (Links)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">"https://jekyllrb.com/"</span><span class="nt">&gt;</span>Jekyll 공식 웹사이트<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://www.markdownguide.org"</span> <span class="na">title=</span><span class="s">"마크다운 가이드 호버 텍스트"</span><span class="nt">&gt;</span>마크다운 가이드<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"5-이미지-images"</span><span class="nt">&gt;</span>5. 이미지 (Images)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">"https://jekyllrb.com/img/logo-2x.png"</span> <span class="na">alt=</span><span class="s">"Jekyll 로고"</span> <span class="nt">/&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"6-인용문-blockquotes"</span><span class="nt">&gt;</span>6. 인용문 (Blockquotes)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;blockquote&gt;</span>
+  <span class="nt">&lt;p&gt;</span>첫 번째 수준 인용문<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;blockquote&gt;</span>
+    <span class="nt">&lt;p&gt;</span>두 번째 수준 인용문<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;blockquote&gt;</span>
+      <span class="nt">&lt;p&gt;</span>세 번째 수준 인용문<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/blockquote&gt;</span>
+  <span class="nt">&lt;/blockquote&gt;</span>
+<span class="nt">&lt;/blockquote&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"7-코드-code"</span><span class="nt">&gt;</span>7. 코드 (Code)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>인라인 코드: ‘console.log(“Hello World!”);’<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>코드 블록:
+‘'’javascript
+function greeting(name) {
+    console.log(“Hello, “ + name + “!”);
+}
+greeting(“Jekyll”);
+‘’’<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"8-표-tables"</span><span class="nt">&gt;</span>8. 표 (Tables)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;table&gt;</span>
+  <span class="nt">&lt;thead&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;th&gt;</span>제목 1<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th&gt;</span>제목 2<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th&gt;</span>제목 3<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/thead&gt;</span>
+  <span class="nt">&lt;tbody&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td&gt;</span>내용 1<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>내용 2<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>내용 3<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td&gt;</span>행 2<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>열 2<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>값 2<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;td&gt;</span>행 3<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>열 3<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>값 3<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"9-수평선-horizontal-rules"</span><span class="nt">&gt;</span>9. 수평선 (Horizontal Rules)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"10-작업-목록-task-lists"</span><span class="nt">&gt;</span>10. 작업 목록 (Task Lists)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"task-list"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"task-list-item"</span><span class="nt">&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">class=</span><span class="s">"task-list-item-checkbox"</span> <span class="na">disabled=</span><span class="s">"disabled"</span> <span class="na">checked=</span><span class="s">"checked"</span> <span class="nt">/&gt;</span>완료된 작업<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"task-list-item"</span><span class="nt">&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">class=</span><span class="s">"task-list-item-checkbox"</span> <span class="na">disabled=</span><span class="s">"disabled"</span> <span class="nt">/&gt;</span>미완료 작업<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"task-list-item"</span><span class="nt">&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">class=</span><span class="s">"task-list-item-checkbox"</span> <span class="na">disabled=</span><span class="s">"disabled"</span> <span class="na">checked=</span><span class="s">"checked"</span> <span class="nt">/&gt;</span>또 다른 완료된 작업<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"11-각주-footnotes"</span><span class="nt">&gt;</span>11. 각주 (Footnotes)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>각주를 사용한 문장<span class="nt">&lt;sup</span> <span class="na">id=</span><span class="s">"fnref:1"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#fn:1"</span> <span class="na">class=</span><span class="s">"footnote"</span> <span class="na">rel=</span><span class="s">"footnote"</span> <span class="na">role=</span><span class="s">"doc-noteref"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/a&gt;&lt;/sup&gt;</span>
+다른 각주를 사용한 문장<span class="nt">&lt;sup</span> <span class="na">id=</span><span class="s">"fnref:2"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#fn:2"</span> <span class="na">class=</span><span class="s">"footnote"</span> <span class="na">rel=</span><span class="s">"footnote"</span> <span class="na">role=</span><span class="s">"doc-noteref"</span><span class="nt">&gt;</span>2<span class="nt">&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"12-정의-목록-definition-lists"</span><span class="nt">&gt;</span>12. 정의 목록 (Definition Lists)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;dl&gt;</span>
+  <span class="nt">&lt;dt&gt;</span>Jekyll<span class="nt">&lt;/dt&gt;</span>
+  <span class="nt">&lt;dd&gt;</span>정적 웹사이트 생성기<span class="nt">&lt;/dd&gt;</span>
+  <span class="nt">&lt;dt&gt;</span>Markdown<span class="nt">&lt;/dt&gt;</span>
+  <span class="nt">&lt;dd&gt;</span>텍스트 기반의 마크업 언어<span class="nt">&lt;/dd&gt;</span>
+<span class="nt">&lt;/dl&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"13-이모지-emoji"</span><span class="nt">&gt;</span>13. 이모지 (Emoji)<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>마크다운에서 이모지도 지원됩니다! :smile: :heart: :+1:<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"14-html-직접-사용"</span><span class="nt">&gt;</span>14. HTML 직접 사용<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>마크다운에서는 <span class="nt">&lt;kbd&gt;</span>Ctrl<span class="nt">&lt;/kbd&gt;</span> + <span class="nt">&lt;kbd&gt;</span>C<span class="nt">&lt;/kbd&gt;</span>처럼 HTML도 직접 사용할 수 있습니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"padding: 20px; background-color: #f0f0f0; border-radius: 5px;"</span><span class="nt">&gt;</span>
+  HTML로 스타일이 적용된 div 박스입니다.
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"footnotes"</span> <span class="na">role=</span><span class="s">"doc-endnotes"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ol&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"fn:1"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;p&gt;</span>첫 번째 각주 설명 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#fnref:1"</span> <span class="na">class=</span><span class="s">"reversefootnote"</span> <span class="na">role=</span><span class="s">"doc-backlink"</span><span class="nt">&gt;</span><span class="ni">&amp;#8617;</span><span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">"fn:2"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;p&gt;</span>두 번째 각주 설명 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#fnref:2"</span> <span class="na">class=</span><span class="s">"reversefootnote"</span> <span class="na">role=</span><span class="s">"doc-backlink"</span><span class="nt">&gt;</span><span class="ni">&amp;#8617;</span><span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ol&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;/main&gt;</span>
+    
+    <span class="nt">&lt;footer&gt;</span>
+        <span class="nt">&lt;footer</span> <span class="na">class=</span><span class="s">"site-footer h-card"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;data</span> <span class="na">class=</span><span class="s">"u-url"</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;&lt;/data&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"wrapper"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"footer-heading"</span><span class="nt">&gt;</span>Your awesome title<span class="nt">&lt;/h2&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"footer-col-wrapper"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"footer-col footer-col-1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"contact-list"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"p-name"</span><span class="nt">&gt;</span>Your awesome title<span class="nt">&lt;/li&gt;&lt;li&gt;&lt;a</span> <span class="na">class=</span><span class="s">"u-email"</span> <span class="na">href=</span><span class="s">"mailto:your-email@example.com"</span><span class="nt">&gt;</span>your-email@example.com<span class="nt">&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"footer-col footer-col-2"</span><span class="nt">&gt;&lt;ul</span> <span class="na">class=</span><span class="s">"social-media-list"</span><span class="nt">&gt;&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"https://github.com/jekyll"</span><span class="nt">&gt;&lt;svg</span> <span class="na">class=</span><span class="s">"svg-icon"</span><span class="nt">&gt;&lt;use</span> <span class="na">xlink:href=</span><span class="s">"/assets/minima-social-icons.svg#github"</span><span class="nt">&gt;&lt;/use&gt;&lt;/svg&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"username"</span><span class="nt">&gt;</span>jekyll<span class="nt">&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"https://www.twitter.com/jekyllrb"</span><span class="nt">&gt;&lt;svg</span> <span class="na">class=</span><span class="s">"svg-icon"</span><span class="nt">&gt;&lt;use</span> <span class="na">xlink:href=</span><span class="s">"/assets/minima-social-icons.svg#twitter"</span><span class="nt">&gt;&lt;/use&gt;&lt;/svg&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"username"</span><span class="nt">&gt;</span>jekyllrb<span class="nt">&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"footer-col footer-col-3"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.<span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;/footer&gt;</span>
+
+    <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h2 id="4-sassscss를-사용한-스타일링">4. Sass/SCSS를 사용한 스타일링</h2>
+
+<p>Jekyll은 Sass/SCSS를 기본적으로 지원합니다. _sass 디렉토리에 스타일 파일을 만들어보세요:</p>
+
+<div class="language-scss highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// _sass/_variables.scss</span>
+<span class="nv">$primary-color</span><span class="p">:</span> <span class="mh">#2c3e50</span><span class="p">;</span>
+<span class="nv">$secondary-color</span><span class="p">:</span> <span class="mh">#3498db</span><span class="p">;</span>
+<span class="nv">$text-color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span>
+
+<span class="c1">// _sass/_layout.scss</span>
+<span class="nc">.container</span> <span class="p">{</span>
+    <span class="nl">max-width</span><span class="p">:</span> <span class="m">1200px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="nb">auto</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.post</span> <span class="p">{</span>
+    <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">2em</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">2px</span> <span class="m">5px</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="mi">.1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="5-포스트-메타데이터-활용하기">5. 포스트 메타데이터 활용하기</h2>
+
+<p>포스트에서 사용할 수 있는 다양한 메타데이터:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">포스트</span><span class="nv"> </span><span class="s">제목"</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">2024-01-28 15:00:00 +0900</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">jekyll</span><span class="pi">,</span> <span class="nv">tutorial</span><span class="pi">]</span>
+<span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">웹개발</span><span class="pi">,</span> <span class="nv">블로그</span><span class="pi">]</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">작성자</span><span class="nv"> </span><span class="s">이름"</span>
+<span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/assets/images/cover.jpg"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">포스트에</span><span class="nv"> </span><span class="s">대한</span><span class="nv"> </span><span class="s">간단한</span><span class="nv"> </span><span class="s">설명"</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h2 id="6-유용한-플러그인-추천">6. 유용한 플러그인 추천</h2>
+
+<p>Jekyll 사이트를 향상시키는 추천 플러그인들:</p>
+
+<ol>
+  <li>jekyll-seo-tag: SEO 최적화</li>
+  <li>jekyll-sitemap: 사이트맵 생성</li>
+  <li>jekyll-feed: RSS 피드 생성</li>
+  <li>jekyll-paginate: 페이지네이션</li>
+  <li>jekyll-archives: 카테고리/태그 아카이브</li>
+</ol>
+
+<p>Gemfile에 플러그인 추가하기:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span> <span class="ss">:jekyll_plugins</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'jekyll-seo-tag'</span>
+  <span class="n">gem</span> <span class="s1">'jekyll-sitemap'</span>
+  <span class="n">gem</span> <span class="s1">'jekyll-feed'</span>
+  <span class="n">gem</span> <span class="s1">'jekyll-paginate'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="7-반응형-디자인-적용하기">7. 반응형 디자인 적용하기</h2>
+
+<p>미디어 쿼리를 사용한 반응형 디자인 예시:</p>
+
+<div class="language-scss highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 모바일 우선 접근</span>
+<span class="nc">.container</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 태블릿</span>
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="o">:</span> <span class="m">768px</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nc">.container</span> <span class="p">{</span>
+        <span class="nl">max-width</span><span class="p">:</span> <span class="m">720px</span><span class="p">;</span>
+        <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 데스크톱</span>
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="o">:</span> <span class="m">1024px</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nc">.container</span> <span class="p">{</span>
+        <span class="nl">max-width</span><span class="p">:</span> <span class="m">960px</span><span class="p">;</span>
+        <span class="nl">padding</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="8-성능-최적화-팁">8. 성능 최적화 팁</h2>
+
+<ol>
+  <li>이미지 최적화</li>
+  <li>불필요한 플러그인 제거</li>
+  <li>캐싱 설정</li>
+  <li>압축된 에셋 사용</li>
+</ol>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">sass</span><span class="pi">:</span>
+    <span class="na">style</span><span class="pi">:</span> <span class="s">compressed</span> <span class="c1"># CSS 압축</span>
+    <span class="na">sass_dir</span><span class="pi">:</span> <span class="s">_sass</span>
+</code></pre></div></div>
+
+<h2 id="9-사용자-경험-향상을-위한-팁">9. 사용자 경험 향상을 위한 팁</h2>
+
+<ol>
+  <li>검색 기능 추가</li>
+  <li>관련 포스트 표시</li>
+  <li>소셜 미디어 공유 버튼</li>
+  <li>댓글 시스템 통합 (Disqus 등)</li>
+  <li>다크 모드 지원</li>
+</ol>
+
+<h2 id="마무리">마무리</h2>
+
+<p>Jekyll의 진정한 강점은 그 유연성에 있습니다. 이 가이드를 통해 여러분만의 독특한 블로그를 만드는데 도움이 되길 바랍니다. 추가 질문이나 의견이 있다면 댓글로 남겨주세요!</p>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Your awesome title. All rights reserved.</p>
+    </footer>
+</body>
+</html>

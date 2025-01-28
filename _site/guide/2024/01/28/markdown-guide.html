@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마크다운 문법 가이드 - Your awesome title</title>
+    <style>
+        /* 전체 레이아웃 스타일링 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* 헤더 스타일링 */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* 네비게이션 스타일링 */
+        nav {
+            background-color: #34495e;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* 메인 컨텐츠 영역 스타일링 */
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        /* 포스트 스타일링 */
+        article {
+            padding: 2rem;
+        }
+
+        article h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        article time {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* 푸터 스타일링 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        /* 링크 스타일링 */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* 코드 블록 스타일링 */
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            main {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your awesome title</h1>
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/archive">Archive</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 id="마크다운-문법-종합-가이드">마크다운 문법 종합 가이드</h1>
+
+<p>이 포스트에서는 Jekyll 블로그에서 사용할 수 있는 다양한 마크다운 문법을 소개합니다.</p>
+
+<h2 id="1-제목-headers">1. 제목 (Headers)</h2>
+
+<h1 id="h1-제목">H1 제목</h1>
+<h2 id="h2-제목">H2 제목</h2>
+<h3 id="h3-제목">H3 제목</h3>
+<h4 id="h4-제목">H4 제목</h4>
+<h5 id="h5-제목">H5 제목</h5>
+<h6 id="h6-제목">H6 제목</h6>
+
+<h2 id="2-강조-emphasis">2. 강조 (Emphasis)</h2>
+
+<p><em>이텔릭체</em>
+<em>이것도 이텔릭체</em></p>
+
+<p><strong>볼드체</strong>
+<strong>이것도 볼드체</strong></p>
+
+<p><strong><em>이텔릭+볼드체</em></strong>
+<strong><em>이것도 이텔릭+볼드체</em></strong></p>
+
+<p><del>취소선</del></p>
+
+<h2 id="3-목록-lists">3. 목록 (Lists)</h2>
+
+<h3 id="순서-있는-목록">순서 있는 목록:</h3>
+<ol>
+  <li>첫 번째 항목</li>
+  <li>두 번째 항목</li>
+  <li>세 번째 항목</li>
+</ol>
+
+<h3 id="순서-없는-목록">순서 없는 목록:</h3>
+<ul>
+  <li>항목 1</li>
+  <li>항목 2
+    <ul>
+      <li>하위 항목 2.1</li>
+      <li>하위 항목 2.2</li>
+    </ul>
+  </li>
+  <li>항목 3</li>
+</ul>
+
+<h2 id="4-링크-links">4. 링크 (Links)</h2>
+
+<p><a href="https://jekyllrb.com/">Jekyll 공식 웹사이트</a>
+<a href="https://www.markdownguide.org" title="마크다운 가이드 호버 텍스트">마크다운 가이드</a></p>
+
+<h2 id="5-이미지-images">5. 이미지 (Images)</h2>
+
+<p><img src="https://jekyllrb.com/img/logo-2x.png" alt="Jekyll 로고" /></p>
+
+<h2 id="6-인용문-blockquotes">6. 인용문 (Blockquotes)</h2>
+
+<blockquote>
+  <p>첫 번째 수준 인용문</p>
+  <blockquote>
+    <p>두 번째 수준 인용문</p>
+    <blockquote>
+      <p>세 번째 수준 인용문</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<h2 id="7-코드-code">7. 코드 (Code)</h2>
+
+<p>인라인 코드: ‘console.log(“Hello World!”);’</p>
+
+<p>코드 블록:
+‘'’javascript
+function greeting(name) {
+    console.log(“Hello, “ + name + “!”);
+}
+greeting(“Jekyll”);
+‘’’</p>
+
+<h2 id="8-표-tables">8. 표 (Tables)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>제목 1</th>
+      <th>제목 2</th>
+      <th>제목 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>내용 1</td>
+      <td>내용 2</td>
+      <td>내용 3</td>
+    </tr>
+    <tr>
+      <td>행 2</td>
+      <td>열 2</td>
+      <td>값 2</td>
+    </tr>
+    <tr>
+      <td>행 3</td>
+      <td>열 3</td>
+      <td>값 3</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="9-수평선-horizontal-rules">9. 수평선 (Horizontal Rules)</h2>
+
+<hr />
+<hr />
+<hr />
+
+<h2 id="10-작업-목록-task-lists">10. 작업 목록 (Task Lists)</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />완료된 작업</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />미완료 작업</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />또 다른 완료된 작업</li>
+</ul>
+
+<h2 id="11-각주-footnotes">11. 각주 (Footnotes)</h2>
+
+<p>각주를 사용한 문장<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>
+다른 각주를 사용한 문장<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup></p>
+
+<h2 id="12-정의-목록-definition-lists">12. 정의 목록 (Definition Lists)</h2>
+
+<dl>
+  <dt>Jekyll</dt>
+  <dd>정적 웹사이트 생성기</dd>
+  <dt>Markdown</dt>
+  <dd>텍스트 기반의 마크업 언어</dd>
+</dl>
+
+<h2 id="13-이모지-emoji">13. 이모지 (Emoji)</h2>
+
+<p>마크다운에서 이모지도 지원됩니다! :smile: :heart: :+1:</p>
+
+<h2 id="14-html-직접-사용">14. HTML 직접 사용</h2>
+
+<p>마크다운에서는 <kbd>Ctrl</kbd> + <kbd>C</kbd>처럼 HTML도 직접 사용할 수 있습니다.</p>
+
+<div style="padding: 20px; background-color: #f0f0f0; border-radius: 5px;">
+  HTML로 스타일이 적용된 div 박스입니다.
+</div>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>첫 번째 각주 설명 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>두 번째 각주 설명 <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Your awesome title. All rights reserved.</p>
+    </footer>
+</body>
+</html>
